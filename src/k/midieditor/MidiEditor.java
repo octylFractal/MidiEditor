@@ -25,13 +25,12 @@ public class MidiEditor {
 			System.out.println(val);
 		}
 		if (hasKey("versionOverride")) {
-			Helper.Window.kill(mainwin);
 			VERSION = getProperty("versionOverride", VERSION);
-			mainwin = new MidiEditorMain(VERSION);
+			MidiEditorMain.reboot(VERSION);
 		}
 		if (hasKey("version")) {
 			System.out.println("MidiEditor v" + VERSION);
-			Helper.Window.kill(mainwin);
+			MidiEditorMain.kill();
 		}
 	}
 }
