@@ -10,8 +10,6 @@ import java.util.Properties;
 
 import javax.swing.JFrame;
 
-import k.midieditor.gui.MidiEditorMain;
-
 public class Helper {
 	public static class Window {
 
@@ -28,6 +26,9 @@ public class Helper {
 		}
 
 		public static void kill(JFrame win) {
+			if(win == null) {
+				return;
+			}
 			WindowEvent close = new WindowEvent(win, WindowEvent.WINDOW_CLOSING);
 			Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(close);
 		}

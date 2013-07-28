@@ -5,12 +5,9 @@ import java.awt.Dimension;
 import java.io.File;
 
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
+import k.midieditor.file.MidiFile;
 import k.midieditor.gui.actions.JMIActionListener;
-import k.midieditor.gui.actions.NJMIActionListener;
 import k.midieditor.util.Helper;
 
 public class MidiEditorMain extends JFrame {
@@ -28,7 +25,7 @@ public class MidiEditorMain extends JFrame {
 
 	private static JFrame inst = null;
 
-	public File working = null;
+	public static MidiFile working = null;
 
 	public MidiEditorMain(String ver) {
 		super("MidiEditor v" + ver);
@@ -44,6 +41,7 @@ public class MidiEditorMain extends JFrame {
 		}
 		this.setVisible(true);
 		inst = this;
+		refresh();
 	}
 
 	public void addAllComponents() {
@@ -92,10 +90,16 @@ public class MidiEditorMain extends JFrame {
 	}
 
 	public File getMidiFile() {
-		return working;
+		return working.getFile();
 	}
 
 	public void setMidiFile(File midi) {
-		working = midi;
+		working.setFileNoReload(midi);
+		refresh();
+	}
+
+	public void setMidiFileReload(File midi) {
+		working.setFile(midi, true);
+		refresh();
 	}
 }

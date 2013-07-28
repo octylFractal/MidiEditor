@@ -12,7 +12,6 @@ public class RJNIActionListener extends JMIActionListener {
 
 	@Override
 	public void onAction(ActionEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 

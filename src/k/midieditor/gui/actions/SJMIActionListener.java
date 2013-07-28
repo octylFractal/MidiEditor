@@ -12,7 +12,6 @@ public class SJMIActionListener extends JMIActionListener {
 
 	@Override
 	public void onAction(ActionEvent e) {
-
+		MidiEditorMain.working.save();
 	}
-
 }
