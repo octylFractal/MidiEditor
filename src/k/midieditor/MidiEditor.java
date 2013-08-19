@@ -1,6 +1,9 @@
 package k.midieditor;
 
 import java.awt.Toolkit;
+import java.lang.reflect.InvocationTargetException;
+
+import javax.swing.SwingUtilities;
 
 import k.midieditor.gui.MidiEditorMain;
 import k.midieditor.util.Helper;
@@ -33,10 +36,25 @@ public class MidiEditor {
 			System.out.println("MidiEditor v" + VERSION);
 			MidiEditorMain.kill();
 		}
+		if (hasKey("versionAndLaunch")) {
+			System.out.println("MidiEditor v" + VERSION);
+		}
 		if (hasKey("debug")) {
 			System.out.println("Toolkit is of type "
 					+ Toolkit.getDefaultToolkit().getClass());
 		}
-		mainwin = new MidiEditorMain(VERSION);
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+
+				@Override
+				public void run() {
+					mainwin = new MidiEditorMain(VERSION);
+				}
+			});
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

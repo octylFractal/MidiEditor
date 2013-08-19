@@ -1,8 +1,11 @@
 package k.midieditor.gui.actions;
 
-import java.awt.FileDialog;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.util.Arrays;
+
+import javax.swing.JFileChooser;
 
 import k.midieditor.MidiEditor;
 import k.midieditor.gui.MidiEditorMain;
@@ -16,12 +19,15 @@ public class NJMIActionListener extends JMIActionListener {
 
 	@Override
 	public void onAction(ActionEvent e) {
-		FileDialog fd = ((OJMIActionListener) JMIActionListener.OPEN_LISTENER)
+		JFileChooser fd = ((OJMIActionListener) JMIActionListener.OPEN_LISTENER)
 				.getDialog();
-		fd.setVisible(true);
-		String out = fd.getFile();
-		if (out != null && out.endsWith(".mid")) {
-			MidiEditor.mainwin.setMidiFileReload(new File(out));
+		fd.showDialog(null, "Create");
+		File out = fd.getSelectedFile();
+		if (out != null) {
+			MidiEditor.mainwin.setMidiFileReload(out);
+		} else {
+			Component[] cmps = fd.getComponents();
+			System.err.println(Arrays.asList(cmps));
 		}
 	}
 

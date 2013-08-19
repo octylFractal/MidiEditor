@@ -22,21 +22,25 @@ public class MidiFile {
 			invalid = true;
 			return;
 		}
-		if (!path.exists()) {
-			try {
-				path.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("WARNING: MidiFile was unable to access '"
-						+ path.getAbsolutePath() + "'!");
-				return;
-			}
-		}
 		reload(path);
 	}
 
 	private void reload(File f) {
+		if (!f.exists()) {
+			try {
+				f.createNewFile();
+				return; // Don't try to read a new file!
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("WARNING: MidiFile was unable to access '"
+						+ f.getAbsolutePath() + "'!");
+				return;
+			}
+		}
 		midi = f.getAbsoluteFile();
+		if(midi.length() == 0) {
+			return;
+		}
 		try {
 			internal = MidiSystem.getSequence(midi);
 			return;
@@ -72,6 +76,14 @@ public class MidiFile {
 		if (invalid)
 			return;
 		getSequence().getTracks()[index] = t;
+	}
+	
+	public void play() {
+		play(getSequence());
+	}
+	
+	public static void play(Sequence s) {
+		
 	}
 
 	public void save() {

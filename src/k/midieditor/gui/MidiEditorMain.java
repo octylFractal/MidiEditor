@@ -2,6 +2,7 @@ package k.midieditor.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.io.File;
 
 import javax.swing.JFrame;
@@ -18,10 +19,10 @@ public class MidiEditorMain extends JFrame {
 
 	/* Menu creation constants */
 	public static final String FILE_KEY = "f", EDIT_KEY = "e",
-			NEW_JMIKEY = "new", OPEN_JMIKEY = "open", SAVE_JMIKEY = "save",
-			SAVEA_JMIKEY = "savea", UNDO_JNIKEY = "undo",
-			UNDOR_JNIKEY = "undor", REDO_JNIKEY = "redo",
-			REDOR_JNIKEY = "redor";
+			UNDO_KEY = "undo_menu", REDO_KEY = "redo_menu", NEW_JMIKEY = "new",
+			OPEN_JMIKEY = "open", SAVE_JMIKEY = "save", SAVEA_JMIKEY = "savea",
+			UNDO_JMIKEY = "undo", UNDOR_JMIKEY = "undor", REDO_JMIKEY = "redo",
+			REDOR_JMIKEY = "redor";
 
 	private static JFrame inst = null;
 
@@ -62,11 +63,15 @@ public class MidiEditorMain extends JFrame {
 		m.addMenuItemToMenuByName(FILE_KEY, OPEN_JMIKEY, "Open");
 		m.addMenuItemToMenuByName(FILE_KEY, SAVE_JMIKEY, "Save");
 		m.addMenuItemToMenuByName(FILE_KEY, SAVEA_JMIKEY, "Save as...");
-		// Edit menu (undo, repeat undo, redo, repeat redo)
-		m.addMenuItemToMenuByName(EDIT_KEY, UNDO_JNIKEY, "Undo");
-		m.addMenuItemToMenuByName(EDIT_KEY, UNDOR_JNIKEY, "Undo...");
-		m.addMenuItemToMenuByName(EDIT_KEY, REDO_JNIKEY, "Redo");
-		m.addMenuItemToMenuByName(EDIT_KEY, REDOR_JNIKEY, "Redo...");
+		// Edit menu (undo menu, redo menu) //
+		// Undo menu (undo, repeat undo) //
+		m.addMenuToMenuByName(EDIT_KEY, UNDO_KEY, "Undo");
+		m.addMenuItemToMenuByName(UNDO_KEY, UNDO_JMIKEY, "Undo");
+		m.addMenuItemToMenuByName(UNDO_KEY, UNDOR_JMIKEY, "Undo...");
+		// Redo menu (redo, repeat redo) //
+		m.addMenuToMenuByName(EDIT_KEY, REDO_KEY, "Redo");
+		m.addMenuItemToMenuByName(REDO_KEY, REDO_JMIKEY, "Redo");
+		m.addMenuItemToMenuByName(REDO_KEY, REDOR_JMIKEY, "Redo...");
 		// Add actions //
 		m.setActionListenerAll(JMIActionListener.inst);
 
@@ -76,6 +81,10 @@ public class MidiEditorMain extends JFrame {
 
 	public void refresh() {
 		this.update(getGraphics());
+	}
+
+	public void update(Graphics g) {
+		paint(g);
 	}
 
 	public static MidiEditorMain reboot(String version) {
@@ -90,15 +99,24 @@ public class MidiEditorMain extends JFrame {
 	}
 
 	public File getMidiFile() {
+		if (working == null) {
+			working = new MidiFile(null);
+		}
 		return working.getFile();
 	}
 
 	public void setMidiFile(File midi) {
+		if (working == null) {
+			working = new MidiFile(midi);
+		}
 		working.setFileNoReload(midi);
 		refresh();
 	}
 
 	public void setMidiFileReload(File midi) {
+		if (working == null) {
+			working = new MidiFile(midi);
+		}
 		working.setFile(midi, true);
 		refresh();
 	}

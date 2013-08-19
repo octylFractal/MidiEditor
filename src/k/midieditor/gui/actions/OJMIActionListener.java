@@ -1,10 +1,10 @@
 package k.midieditor.gui.actions;
 
-import java.awt.Dialog;
-import java.awt.FileDialog;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.FilenameFilter;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import k.midieditor.MidiEditor;
 import k.midieditor.gui.MidiEditorMain;
@@ -12,8 +12,7 @@ import k.midieditor.gui.MidiEditorMain;
 public class OJMIActionListener extends JMIActionListener {
 	private File workingDir = new File(System.getProperty("user.home", "/"));
 	private File oldDir = null;
-	private FileDialog dialog = new FileDialog((Dialog) null,
-			"Choose a file: ", FileDialog.LOAD);
+	private JFileChooser dialog = new JFileChooser(workingDir);
 
 	public OJMIActionListener() {
 		super("Open", MidiEditorMain.OPEN_JMIKEY, MidiEditorMain.FILE_KEY);
@@ -21,29 +20,27 @@ public class OJMIActionListener extends JMIActionListener {
 
 	@Override
 	public void onAction(ActionEvent e) {
-		FileDialog fd = getDialog();
-		fd.setVisible(true);
-		String out = fd.getFile();
-		if (out != null && out.endsWith(".mid")) {
-			MidiEditor.mainwin.setMidiFileReload(new File(out));
+		JFileChooser fd = getDialog();
+		fd.showOpenDialog(null);
+		File out = fd.getSelectedFile();
+		if (out != null) {
+			MidiEditor.mainwin.setMidiFileReload(out);
 		}
 	}
 
-	public FileDialog getDialog() {
-		if (dialog.getDirectory() == null && workingDir != null) {
-			dialog.setDirectory(workingDir.getAbsolutePath());
+	public JFileChooser getDialog() {
+		if (dialog.getCurrentDirectory() == null && workingDir != null) {
+			dialog.setCurrentDirectory(workingDir);
 		}
-		if (oldDir != null && workingDir != null
-				&& dialog.getDirectory().equals(oldDir.getAbsolutePath())
-				|| !dialog.getDirectory().equals(workingDir.getAbsolutePath())) {
-			dialog.setDirectory(workingDir.getAbsolutePath());
-			dialog.setFilenameFilter(new FilenameFilter() {
-
-				@Override
-				public boolean accept(File dir, String name) {
-					return dir.getAbsolutePath().endsWith(".mid");
-				}
-			});
+		if (oldDir != null
+				&& workingDir != null
+				&& dialog.getCurrentDirectory()
+						.equals(oldDir.getAbsolutePath())
+				|| !dialog.getCurrentDirectory().equals(
+						workingDir.getAbsolutePath())) {
+			dialog.setCurrentDirectory(workingDir);
+			dialog.setFileFilter(new FileNameExtensionFilter("MIDI Files",
+					"mid", "midi"));
 		}
 		return dialog;
 	}

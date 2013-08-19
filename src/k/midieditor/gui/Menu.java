@@ -28,6 +28,9 @@ public class Menu {
 	}
 
 	public static Menu create(String key) {
+		if (menus.containsKey(key)) {
+			return get(key);
+		}
 		menus.put(key, new Menu());
 		return menus.get(key);
 	}
@@ -62,6 +65,23 @@ public class Menu {
 				menu.add(new JMenuItem(title)));
 		jmiTitleToRef.put(a(menu_ref_name, title),
 				a(menu_ref_name, jmi_ref_name));
+	}
+
+	public void addMenuToMenu(String menu_ref_name, String title) {
+		addMenuToMenuByName(menu_ref_name, title, title);
+	}
+
+	public void addMenuToMenuByName(String menu_ref_name,
+			String menu_ref_name2, String title) {
+		JMenu menu = map.get(menu_ref_name);
+		if (menu == null) {
+			System.err.println("No menu accesible from refname "
+					+ menu_ref_name + "!");
+			return;
+		}
+		map.put(menu_ref_name2, new JMenu(title));
+		menu.add(map.get(menu_ref_name2));
+		titleToRef.put(title, menu_ref_name2);
 	}
 
 	public JMenu getMenuByTitle(String menu_title) {

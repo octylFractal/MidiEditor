@@ -35,7 +35,7 @@ public abstract class JMIActionListener implements ActionListener {
 		cmd = command;
 		jmi_ref = jmi_ref_name;
 		menu = mtitle;
-		System.out.println("registerd new listener: " + hm.get(jmi_ref_name)
+		System.err.println("registerd new listener: " + hm.get(jmi_ref_name)
 				+ " " + reg_refs.get(command));
 	}
 
@@ -44,13 +44,13 @@ public abstract class JMIActionListener implements ActionListener {
 			SAVE_LISTENER = new SJMIActionListener(),
 			SAVEA_LISTENER = new SAJMIActionListener(),
 			UNDO_LISTENER = new UJMIActionListener("Undo",
-					MidiEditorMain.UNDO_JNIKEY),
+					MidiEditorMain.UNDO_JMIKEY),
 			UNDOR_LISTENER = new UJMIActionListener("Undo...",
-					MidiEditorMain.UNDOR_JNIKEY),
+					MidiEditorMain.UNDOR_JMIKEY),
 			REDO_LISTENER = new RJNIActionListener("Redo",
-					MidiEditorMain.REDO_JNIKEY),
+					MidiEditorMain.REDO_JMIKEY),
 			REDOR_LISTENER = new RJNIActionListener("Redo...",
-					MidiEditorMain.REDOR_JNIKEY);
+					MidiEditorMain.REDOR_JMIKEY);
 	public static final JMIActionListener inst = new NonAbstractJMIActionListener(
 			"3.14159", null, "35.0");
 
@@ -64,10 +64,14 @@ public abstract class JMIActionListener implements ActionListener {
 					+ translatedKey);
 			return;
 		} else if (listener == inst) {
-			System.err.println("Null entry!");
+			System.err.println("Null entry for title " + e.getActionCommand()
+					+ " (ref is " + translatedKey
+					+ "[retrived via cmenu.translateJMITitleToRef("
+					+ reg_refs.get(e.getActionCommand()) + ", "
+					+ e.getActionCommand() + ")!");
 			return;
 		}
-		System.err.println("Inovking class " + listener.getClass().getName());
+		System.err.println("Invoking class " + listener.getClass().getName());
 		listener.onAction(e);
 	}
 

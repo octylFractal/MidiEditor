@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -26,7 +27,7 @@ public class Helper {
 		}
 
 		public static void kill(JFrame win) {
-			if(win == null) {
+			if (win == null) {
 				return;
 			}
 			WindowEvent close = new WindowEvent(win, WindowEvent.WINDOW_CLOSING);
@@ -37,10 +38,14 @@ public class Helper {
 
 	public static class Array {
 		public static void print(Object[] array) {
+			print(array, System.err);
+		}
+
+		public static void print(Object[] array, PrintStream o) {
 			if (array == null) {
-				System.out.println("Array is null.");
+				o.println("Array is null.");
 			}
-			System.out.println(array.getClass().getComponentType().getName()
+			o.println(array.getClass().getComponentType().getName()
 					+ "[] (length: " + array.length + ") contents:");
 			int index = 0;
 			for (Object object : array) {
@@ -58,7 +63,7 @@ public class Helper {
 					out = object.toString();
 					clazs = object.getClass().getName();
 				}
-				System.out.println(indexs + "(" + clazs + ") " + out);
+				o.println(indexs + "(" + clazs + ") " + out);
 				index++;
 			}
 		}
@@ -134,7 +139,7 @@ public class Helper {
 		public static void acceptPair(String key, String val) {
 			key = key.replace("-", "");
 			clprops.put(key, val);
-			System.out.println("Added " + key + ":" + val);
+			System.err.println("Added " + key + ":" + val);
 		}
 
 		public static String getProperty(String key) {
