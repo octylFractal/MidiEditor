@@ -8,6 +8,8 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
+import k.midieditor.MidiFilePlayer;
+
 public class MidiFile {
 	private boolean invalid = false;
 	private File midi = null;
@@ -38,7 +40,7 @@ public class MidiFile {
 			}
 		}
 		midi = f.getAbsoluteFile();
-		if(midi.length() == 0) {
+		if (midi.length() == 0) {
 			return;
 		}
 		try {
@@ -77,13 +79,13 @@ public class MidiFile {
 			return;
 		getSequence().getTracks()[index] = t;
 	}
-	
+
 	public void play() {
 		play(getSequence());
 	}
-	
+
 	public static void play(Sequence s) {
-		
+		MidiFilePlayer.openAndPlay(s);
 	}
 
 	public void save() {
@@ -94,12 +96,18 @@ public class MidiFile {
 		if (invalid)
 			return;
 		try {
+			if (internal == null) {
+				internal = new Sequence(Sequence.PPQ, 32);
+				internal.createTrack();
+			}
 			MidiSystem.write(internal,
 					MidiSystem.getMidiFileTypes(internal)[0], dest);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.err.println("No supported midi types!");
+		} catch (InvalidMidiDataException e) {
+			e.printStackTrace();
 		}
 	}
 

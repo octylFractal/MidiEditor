@@ -53,6 +53,23 @@ public class Menu {
 		addMenuItemToMenuByName(menu_ref_name, title, title);
 	}
 
+	public void addGenericMenuItemToMenuByName(String menu_ref_name,
+			String jmi_ref_name, JMenuItem item) {
+		JMenu menu = map.get(menu_ref_name);
+		if (menu == null) {
+			System.err.println("No menu accesible from refname "
+					+ menu_ref_name + "!");
+			return;
+		}
+		jmimap.put(a(menu_ref_name, jmi_ref_name), menu.add(item));
+		jmiTitleToRef.put(a(menu_ref_name, item.getText()),
+				a(menu_ref_name, jmi_ref_name));
+	}
+
+	public void addGenericMenuItemToMenu(String menu_ref_name, JMenuItem item) {
+		addGenericMenuItemToMenuByName(menu_ref_name, item.getText(), item);
+	}
+
 	public void addMenuItemToMenuByName(String menu_ref_name,
 			String jmi_ref_name, String title) {
 		JMenu menu = map.get(menu_ref_name);

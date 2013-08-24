@@ -27,7 +27,7 @@ public abstract class JMIActionListener implements ActionListener {
 
 	private static HashMap<String, JMIActionListener> hm = new HashMap<String, JMIActionListener>();
 	private static HashMap<String, String> reg_refs = new HashMap<String, String>();
-	private static Menu cmenu = Menu.get("midieditormain");
+	private Menu cmenu;
 
 	public JMIActionListener(String command, String jmi_ref_name, String mtitle) {
 		hm.put(jmi_ref_name, this);
@@ -35,8 +35,8 @@ public abstract class JMIActionListener implements ActionListener {
 		cmd = command;
 		jmi_ref = jmi_ref_name;
 		menu = mtitle;
-		System.err.println("registerd new listener: " + hm.get(jmi_ref_name)
-				+ " " + reg_refs.get(command));
+		System.err.println("registered new listener: " + hm.get(jmi_ref_name)
+				+ " on menu ref " + reg_refs.get(command));
 	}
 
 	public static final JMIActionListener NEW_LISTENER = new NJMIActionListener(),
@@ -50,9 +50,19 @@ public abstract class JMIActionListener implements ActionListener {
 			REDO_LISTENER = new RJNIActionListener("Redo",
 					MidiEditorMain.REDO_JMIKEY),
 			REDOR_LISTENER = new RJNIActionListener("Redo...",
-					MidiEditorMain.REDOR_JMIKEY);
-	public static final JMIActionListener inst = new NonAbstractJMIActionListener(
-			"3.14159", null, "35.0");
+					MidiEditorMain.REDOR_JMIKEY),
+			PLAY_LISTENER = new PLJMIActionListener(),
+			PAUSE_LISTENER = new PAJMIActionListener(),
+			STOP_LISTENER = new STJMIActionListener(),
+			DEBUG_LISTENER = new DJMIActionListener(),
+			LOOP_LISTENER = new LJIMIActionListener();
+
+	public static JMIActionListener instForMenu(String menuKey) {
+		JMIActionListener nl = new NonAbstractJMIActionListener("3.14159",
+				null, "bigmagic v35.0");
+		nl.cmenu = Menu.get(menuKey);
+		return nl;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -63,7 +73,7 @@ public abstract class JMIActionListener implements ActionListener {
 			System.err.println("Warning: No registered listener for item: "
 					+ translatedKey);
 			return;
-		} else if (listener == inst) {
+		} else if (listener instanceof NonAbstractJMIActionListener) {
 			System.err.println("Null entry for title " + e.getActionCommand()
 					+ " (ref is " + translatedKey
 					+ "[retrived via cmenu.translateJMITitleToRef("
@@ -71,7 +81,13 @@ public abstract class JMIActionListener implements ActionListener {
 					+ e.getActionCommand() + ")!");
 			return;
 		}
-		System.err.println("Invoking class " + listener.getClass().getName());
+		System.err.println("Invoking class " + listener.getClass().getName()
+				+ " with action " + e.toString());
+		System.err.println("entry for title " + e.getActionCommand()
+				+ " (ref is " + translatedKey
+				+ " [retrived via cmenu.translateJMITitleToRef("
+				+ reg_refs.get(e.getActionCommand()) + ", "
+				+ e.getActionCommand() + ")!");
 		listener.onAction(e);
 	}
 

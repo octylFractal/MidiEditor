@@ -84,7 +84,9 @@ public class Helper {
 				} else if (curr.startsWith("-")) {
 					incomplete = false;
 					joined.add(key);
-					joined.add(value);
+					joined.add("");
+					joined.add(curr);
+					joined.add("");
 				} else {
 					if (incomplete) {
 						if (i + 1 < args.length && args[i + 1].startsWith("-")) {

@@ -1,9 +1,7 @@
 package k.midieditor.gui.actions;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.Arrays;
 
 import javax.swing.JFileChooser;
 
@@ -25,9 +23,6 @@ public class NJMIActionListener extends JMIActionListener {
 		File out = fd.getSelectedFile();
 		if (out != null) {
 			MidiEditor.mainwin.setMidiFileReload(out);
-		} else {
-			Component[] cmps = fd.getComponents();
-			System.err.println(Arrays.asList(cmps));
 		}
 	}
 
