@@ -9,6 +9,7 @@ import java.io.PrintStream;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -20,7 +21,7 @@ public class SideConsole extends JFrame {
 	private static final long serialVersionUID = 3733784846766341735L;
 	private boolean error;
 	public JScrollPane scroller;
-	private PrintStream oldO, oldE, newO, newE;
+	private static PrintStream oldO, oldE, newO, newE;
 	private static String[] exceptions = { "Error creating the OutputStreams",
 			"Error setting System.out", "Error setting System.out" };
 	protected static PrintStream log;
@@ -61,6 +62,14 @@ public class SideConsole extends JFrame {
 		}
 	};
 
+	public static void setOut(PrintStream temp) {
+		oldO = temp;
+	}
+
+	public static void setErr(PrintStream temp_) {
+		oldE = temp_;
+	}
+
 	public SideConsole() {
 		error = CommandLine.hasKey("debug");
 		JPanel jp = new JPanel();
@@ -78,14 +87,18 @@ public class SideConsole extends JFrame {
 		pack();
 		setVisible(true);
 		int state = -1;
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+		}
 		if (!chained) {
 			try {
 				state = 0;
 				OutputStream jtaOStream = new TextAreaPrinter(jta, "[Output] ");
 				OutputStream jtaEStream = new TextAreaPrinter(jta, "[Debug] ");
 				state = 1;
-				oldO = System.out;
-				oldE = System.err;
+				oldO = oldO == null ? System.out : oldO;
+				oldE = oldE == null ? System.err : oldE;
 				newO = new ChainedStream(jtaOStream, oldO, true);
 				newE = new ChainedStream(jtaEStream, oldE, true);
 				System.setOut(newO);
@@ -119,6 +132,8 @@ public class SideConsole extends JFrame {
 		// Add menu items inside bar-visible ones //
 		m.addGenericMenuItemToMenuByName(OPTION_MENU, DEBUG_JMIKEY,
 				new JCheckBoxMenuItem("Debug?"));
+		JMenuItem jmi = m.getItemInMenuByRef(OPTION_MENU, DEBUG_JMIKEY);
+		jmi.setSelected(error);
 
 		// Add listeners //
 		m.setActionListenerAll(JMIActionListener.instForMenu("console"));

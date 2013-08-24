@@ -50,15 +50,20 @@ public class MidiEditor {
 			VERSION = getProperty("versionOverride", VERSION);
 		}
 		if (hasKey("version")) {
-			System.out.println("MidiEditor v" + VERSION);
-			MidiEditorMain.kill();
+			temp.println("MidiEditor v" + VERSION);
+			try {
+				Thread.sleep(10);
+				return;
+			} catch (InterruptedException ie) {
+			}
+
 		}
 		if (hasKey("versionAndLaunch")) {
 			System.out.println("MidiEditor v" + VERSION);
 		}
 		try {
-			System.setOut(temp);
-			System.setErr(temp_);
+			SideConsole.setOut(temp);
+			SideConsole.setErr(temp_);
 			SwingUtilities.invokeAndWait(new Runnable() {
 
 				@Override

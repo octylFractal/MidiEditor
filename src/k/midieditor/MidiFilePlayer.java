@@ -97,6 +97,8 @@ public class MidiFilePlayer {
 			throws MidiUnavailableException {
 		List<Info> li = Arrays.asList(MidiSystem.getMidiDeviceInfo());
 		for (Info i : li) {
+			System.err.println("Testing device with info " + i.getName() + " v"
+					+ i.getVersion() + " by " + i.getVendor());
 			if (i.getName().contains("Gervill")) {
 				return (Synthesizer) MidiSystem.getMidiDevice(i);
 			}
