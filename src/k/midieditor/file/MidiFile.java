@@ -45,7 +45,6 @@ public class MidiFile {
 		}
 		try {
 			internal = MidiSystem.getSequence(midi);
-			MidiFilePlayer.open(internal);
 			return;
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
@@ -86,7 +85,7 @@ public class MidiFile {
 	}
 
 	public static void play(Sequence s) {
-		MidiFilePlayer.play();
+		MidiFilePlayer.openAndPlay(s);
 	}
 
 	public void save() {
