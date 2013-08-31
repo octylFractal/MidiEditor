@@ -17,16 +17,11 @@ public class MidiFilePlayer {
 	public static long micro = -1;
 	public static Synthesizer synth;
 
-	@Deprecated
 	public static void openAndPlay(Sequence se) {
-		open(se);
-		play();
-	}
-
-	public static void open(Sequence se) {
-		init(true);
 		try {
+			init();
 			s.setSequence(se);
+			play();
 		} catch (InvalidMidiDataException e) {
 			e.printStackTrace();
 		}
@@ -34,7 +29,7 @@ public class MidiFilePlayer {
 
 	public static void play() {
 		if (s == null) {
-			init(false);
+			init();
 		}
 		if (s.getSequence() == null) {
 			return;
@@ -45,7 +40,7 @@ public class MidiFilePlayer {
 
 	public static void stop() {
 		if (s == null) {
-			init(false);
+			init();
 		}
 		micro = -1;
 		s.stop();
@@ -54,15 +49,15 @@ public class MidiFilePlayer {
 
 	public static void pause() {
 		if (s == null) {
-			init(false);
+			init();
 		}
 		micro = s.getMicrosecondPosition();
 		s.stop();
 	}
 
 	public static void loop(long start, long end, int count) {
-		if (s != null && s.getSequence() == null) {
-			return;
+		if (s == null) {
+			init();
 		}
 		s.setLoopCount(count);
 		s.setLoopStartPoint(start);
@@ -71,19 +66,16 @@ public class MidiFilePlayer {
 
 	public static long microPos() {
 		if (s == null) {
-			init(false);
+			init();
 		}
 		return s.getMicrosecondPosition();
 	}
 
 	public static boolean playing() {
-		return microPos() > 0;
+		return microPos() > -1;
 	}
 
-	private static void init(boolean refresh) {
-		if (s != null && !refresh) {
-			return;
-		}
+	private static void init() {
 		try {
 			if (micro > -1 || (s != null) && playing()) {
 				stop();
@@ -118,7 +110,7 @@ public class MidiFilePlayer {
 
 	public static Sequencer getSeq() {
 		if (s == null) {
-			init(false);
+			init();
 		}
 		return s;
 	}

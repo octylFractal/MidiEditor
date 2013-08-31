@@ -2,6 +2,7 @@ package k.midieditor.gui.actions;
 
 import java.awt.event.ActionEvent;
 
+import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.swing.JOptionPane;
 
@@ -17,11 +18,6 @@ public class LJIMIActionListener extends JMIActionListener {
 
 	@Override
 	public void onAction(ActionEvent e) {
-		if (MidiFilePlayer.getSeq().getSequence() == null) {
-			JOptionPane.showMessageDialog(null, "There is no file open",
-					"Cannot add a loop", JOptionPane.INFORMATION_MESSAGE);
-			return;
-		}
 		String strt = JOptionPane.showInputDialog("Loop start point?", "0");
 		String end = JOptionPane
 				.showInputDialog("Loop end point?",
