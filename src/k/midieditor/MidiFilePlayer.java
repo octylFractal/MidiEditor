@@ -12,10 +12,45 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Synthesizer;
 
+import k.midieditor.util.MicroTracker;
+import k.midieditor.util.MicroTracker.MicroListener;
+
 public class MidiFilePlayer {
 	public static Sequencer s;
 	public static long micro = -1;
 	public static Synthesizer synth;
+	private static int loops;
+	private static long l_start;
+	private static long l_end;
+	private static MicroListener loopListen = new MicroListener() {
+
+		@Override
+		public void onStart() {
+			if (loops != 0) {
+
+			}
+		}
+
+		@Override
+		public void onMicroChange(long new_micro) {
+			if (new_micro < l_start) {
+				s.setMicrosecondPosition(l_start);
+			}
+			if (new_micro > l_end) {
+				s.setMicrosecondPosition(l_start);
+				if (loops > 0) {
+					loops--;
+				} else if (loops != 0) {
+					loops = -1;
+				}
+			}
+		}
+
+		@Override
+		public void onEnd() {
+
+		}
+	};
 
 	@Deprecated
 	public static void openAndPlay(Sequence se) {
@@ -64,9 +99,14 @@ public class MidiFilePlayer {
 		if (s != null && s.getSequence() == null) {
 			return;
 		}
-		s.setLoopCount(count);
-		s.setLoopStartPoint(start);
-		s.setLoopEndPoint(end);
+		loopSequenceFix(start, end, count);
+	}
+
+	private static void loopSequenceFix(long start, long end, int count) {
+		loops = count;
+		l_start = start;
+		l_end = end;
+		MicroTracker.addListener(loopListen);
 	}
 
 	public static long microPos() {
