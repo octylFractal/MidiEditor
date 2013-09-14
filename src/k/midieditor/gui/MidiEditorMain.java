@@ -13,7 +13,6 @@ import k.core.gui.JMIActionListener;
 import k.core.gui.Menu;
 import k.core.gui.SideConsole;
 import k.midieditor.file.MidiFile;
-import k.midieditor.gui.actions.DJMIActionListener;
 import k.midieditor.gui.actions.LJIMIActionListener;
 import k.midieditor.gui.actions.NJMIActionListener;
 import k.midieditor.gui.actions.OJMIActionListener;
@@ -57,7 +56,6 @@ public class MidiEditorMain extends JFrame {
 			PLAY_LISTENER = new PLJMIActionListener(),
 			PAUSE_LISTENER = new PAJMIActionListener(),
 			STOP_LISTENER = new STJMIActionListener(),
-			DEBUG_LISTENER = new DJMIActionListener(),
 			LOOP_LISTENER = new LJIMIActionListener();
 
 	private static JFrame inst = null;
