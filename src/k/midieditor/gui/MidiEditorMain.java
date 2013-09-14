@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 import k.core.gui.JMIActionListener;
 import k.core.gui.Menu;
 import k.core.gui.SideConsole;
+import k.core.util.Helper;
+import k.core.util.Helper.CommandLine;
 import k.midieditor.file.MidiFile;
 import k.midieditor.gui.actions.LJIMIActionListener;
 import k.midieditor.gui.actions.NJMIActionListener;
@@ -23,8 +25,6 @@ import k.midieditor.gui.actions.SAJMIActionListener;
 import k.midieditor.gui.actions.SJMIActionListener;
 import k.midieditor.gui.actions.STJMIActionListener;
 import k.midieditor.gui.actions.UJMIActionListener;
-import k.midieditor.util.Helper;
-import k.midieditor.util.Helper.CommandLine;
 
 public class MidiEditorMain extends JFrame {
 	/**
