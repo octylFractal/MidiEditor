@@ -4,8 +4,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JCheckBoxMenuItem;
 
+import k.core.gui.JMIActionListener;
+import k.core.gui.SideConsole;
 import k.midieditor.gui.MidiEditorMain;
-import k.midieditor.gui.SideConsole;
 
 public class DJMIActionListener extends JMIActionListener {
 

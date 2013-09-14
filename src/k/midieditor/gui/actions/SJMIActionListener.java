@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
 
+import k.core.gui.JMIActionListener;
 import k.midieditor.gui.MidiEditorMain;
 
 public class SJMIActionListener extends JMIActionListener {

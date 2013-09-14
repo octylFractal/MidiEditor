@@ -1,4 +1,8 @@
-Current version: 1.2 alpha, still heavily under development!
+Current version: 1.3 alpha, still heavily under development!
+
+REQUIRED
+=========
+KCore, my library. Avaliable in src form at http://www.github.com/kenzierocks/KCore.
 
 Features: 
   - Argument parser

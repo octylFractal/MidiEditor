@@ -1,32 +1,36 @@
 package k.midieditor;
 
+import static k.midieditor.util.Helper.CommandLine.acceptPair;
+import static k.midieditor.util.Helper.CommandLine.getProperty;
+import static k.midieditor.util.Helper.CommandLine.hasKey;
+import static k.midieditor.util.Helper.CommandLine.normalizeCommandArgs;
+
 import java.awt.Toolkit;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
 
+import k.core.gui.SideConsole;
 import k.midieditor.gui.MidiEditorMain;
-import k.midieditor.gui.SideConsole;
 import k.midieditor.util.Helper;
-import static k.midieditor.util.Helper.CommandLine.*;
 
 public class MidiEditor {
-	public static String VERSION = "1.2 alpha";
+	public static String VERSION = "1.3 alpha";
 	public static MidiEditorMain mainwin;
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		PrintStream out = SideConsole.earlyChainO(), temp = System.out;
+		PrintStream temp = System.out, out = SideConsole.earlyChainO(temp);
 		System.setOut(out);
 		PrintStream err = System.err, temp_ = System.err;
 		Helper.Array.print(args);
 		args = normalizeCommandArgs(args);
 		for (String s : args) {
 			if (s.equalsIgnoreCase("-debug")) {
-				err = SideConsole.earlyChainE();
+				err = SideConsole.earlyChainE(temp_);
 				System.setErr(err);
 				break;
 			}
@@ -62,8 +66,6 @@ public class MidiEditor {
 			System.out.println("MidiEditor v" + VERSION);
 		}
 		try {
-			SideConsole.setOut(temp);
-			SideConsole.setErr(temp_);
 			SwingUtilities.invokeAndWait(new Runnable() {
 
 				@Override

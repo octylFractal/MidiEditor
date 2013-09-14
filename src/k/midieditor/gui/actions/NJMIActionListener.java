@@ -5,6 +5,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import k.core.gui.JMIActionListener;
 import k.midieditor.MidiEditor;
 import k.midieditor.gui.MidiEditorMain;
 
@@ -17,7 +18,7 @@ public class NJMIActionListener extends JMIActionListener {
 
 	@Override
 	public void onAction(ActionEvent e) {
-		JFileChooser fd = ((OJMIActionListener) JMIActionListener.OPEN_LISTENER)
+		JFileChooser fd = ((OJMIActionListener) MidiEditorMain.OPEN_LISTENER)
 				.getDialog();
 		fd.showDialog(null, "Create");
 		File out = fd.getSelectedFile();

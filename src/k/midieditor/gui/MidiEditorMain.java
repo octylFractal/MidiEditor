@@ -9,9 +9,23 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
+import k.core.gui.JMIActionListener;
+import k.core.gui.Menu;
+import k.core.gui.SideConsole;
 import k.midieditor.file.MidiFile;
-import k.midieditor.gui.actions.JMIActionListener;
+import k.midieditor.gui.actions.DJMIActionListener;
+import k.midieditor.gui.actions.LJIMIActionListener;
+import k.midieditor.gui.actions.NJMIActionListener;
+import k.midieditor.gui.actions.OJMIActionListener;
+import k.midieditor.gui.actions.PAJMIActionListener;
+import k.midieditor.gui.actions.PLJMIActionListener;
+import k.midieditor.gui.actions.RJNIActionListener;
+import k.midieditor.gui.actions.SAJMIActionListener;
+import k.midieditor.gui.actions.SJMIActionListener;
+import k.midieditor.gui.actions.STJMIActionListener;
+import k.midieditor.gui.actions.UJMIActionListener;
 import k.midieditor.util.Helper;
+import k.midieditor.util.Helper.CommandLine;
 
 public class MidiEditorMain extends JFrame {
 	/**
@@ -28,6 +42,24 @@ public class MidiEditorMain extends JFrame {
 			REDOR_JMIKEY = "redor", PLAY_JMIKEY = "play",
 			PAUSE_JMIKEY = "pause", STOP_JMIKEY = "stop", LOOP_JMIKEY = "loop";
 
+	public static final JMIActionListener NEW_LISTENER = new NJMIActionListener(),
+			OPEN_LISTENER = new OJMIActionListener(),
+			SAVE_LISTENER = new SJMIActionListener(),
+			SAVEA_LISTENER = new SAJMIActionListener(),
+			UNDO_LISTENER = new UJMIActionListener("Undo",
+					MidiEditorMain.UNDO_JMIKEY),
+			UNDOR_LISTENER = new UJMIActionListener("Undo...",
+					MidiEditorMain.UNDOR_JMIKEY),
+			REDO_LISTENER = new RJNIActionListener("Redo",
+					MidiEditorMain.REDO_JMIKEY),
+			REDOR_LISTENER = new RJNIActionListener("Redo...",
+					MidiEditorMain.REDOR_JMIKEY),
+			PLAY_LISTENER = new PLJMIActionListener(),
+			PAUSE_LISTENER = new PAJMIActionListener(),
+			STOP_LISTENER = new STJMIActionListener(),
+			DEBUG_LISTENER = new DJMIActionListener(),
+			LOOP_LISTENER = new LJIMIActionListener();
+
 	private static JFrame inst = null;
 
 	public static MidiFile working = null;
@@ -36,12 +68,13 @@ public class MidiEditorMain extends JFrame {
 
 	public MidiEditorMain(String ver) {
 		super("MidiEditor v" + ver);
-		console = new SideConsole();
+		console = new SideConsole(CommandLine.hasKey("debug"));
 		console.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				Helper.Window.kill(console);
+				System.exit(0);
 			}
 		});
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
