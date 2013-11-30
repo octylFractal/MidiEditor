@@ -26,7 +26,7 @@ public class MidiEditor {
 		PrintStream temp = System.out, out = SideConsole.earlyChainO(temp);
 		System.setOut(out);
 		PrintStream err = System.err, temp_ = System.err;
-		Helper.Array.print(args);
+		Helper.Arrays.print(args);
 		args = normalizeCommandArgs(args);
 		for (String s : args) {
 			if (s.equalsIgnoreCase("-debug")) {
@@ -35,7 +35,7 @@ public class MidiEditor {
 				break;
 			}
 		}
-		Helper.Array.print(args);
+		Helper.Arrays.print(args);
 		for (int i = 0; i < args.length; i += 2) {
 			int i2 = i + 1;
 			String key = args[i];
