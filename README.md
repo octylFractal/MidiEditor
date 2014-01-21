@@ -3,8 +3,8 @@ Current version: 1.3 alpha, still heavily under development!
 REQUIRED
 =========
 Here are the KCore parts that this needs:
-*Core
-*Gui
+* Core
+* Gui
 
 Get them [here](http://techshroom.com/other/libraries/kcore/distributed-segments/).
 
