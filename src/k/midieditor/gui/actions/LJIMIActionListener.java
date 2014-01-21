@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.sound.midi.Sequencer;
 import javax.swing.JOptionPane;
 
-import k.core.gui.JMIActionListener;
+import k.core.util.gui.JMIActionListener;
 import k.midieditor.MidiFilePlayer;
 import k.midieditor.gui.MidiEditorMain;
 

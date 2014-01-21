@@ -2,7 +2,7 @@ package k.midieditor.gui.actions;
 
 import java.awt.event.ActionEvent;
 
-import k.core.gui.JMIActionListener;
+import k.core.util.gui.JMIActionListener;
 import k.midieditor.gui.MidiEditorMain;
 
 public class UJMIActionListener extends JMIActionListener {

@@ -6,7 +6,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import k.core.gui.JMIActionListener;
+import k.core.util.gui.JMIActionListener;
 import k.midieditor.file.MidiFile;
 import k.midieditor.gui.MidiEditorMain;
 
@@ -30,7 +30,7 @@ public class SAJMIActionListener extends JMIActionListener {
 							null,
 							"There is no file open, would you like to create a blank one?",
 							"Cannot save", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
-			if(yes) {
+			if (yes) {
 				MidiEditorMain.working = new MidiFile(out);
 				MidiEditorMain.working.save(out);
 			}

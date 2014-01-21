@@ -13,7 +13,7 @@ public class MicroTracker {
 	}
 
 	private static List<MicroListener> listeners = new ArrayList<MicroListener>();
-	
+
 	public static void addListener(MicroListener ml) {
 		listeners.add(ml);
 	}

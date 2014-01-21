@@ -9,11 +9,11 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
-import k.core.gui.JMIActionListener;
-import k.core.gui.Menu;
-import k.core.gui.SideConsole;
 import k.core.util.Helper;
-import k.core.util.Helper.CommandLine;
+import k.core.util.Helper.ProgramProps;
+import k.core.util.gui.JMIActionListener;
+import k.core.util.gui.Menu;
+import k.core.util.gui.SideConsole;
 import k.midieditor.file.MidiFile;
 import k.midieditor.gui.actions.LJIMIActionListener;
 import k.midieditor.gui.actions.NJMIActionListener;
@@ -66,7 +66,7 @@ public class MidiEditorMain extends JFrame {
 
 	public MidiEditorMain(String ver) {
 		super("MidiEditor v" + ver);
-		console = new SideConsole(CommandLine.hasKey("debug"));
+		console = new SideConsole(ProgramProps.hasKey("debug"));
 		console.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override

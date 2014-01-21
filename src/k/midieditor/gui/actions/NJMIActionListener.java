@@ -5,7 +5,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import k.core.gui.JMIActionListener;
+import k.core.util.gui.JMIActionListener;
 import k.midieditor.MidiEditor;
 import k.midieditor.gui.MidiEditorMain;
 

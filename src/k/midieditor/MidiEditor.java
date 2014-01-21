@@ -1,9 +1,9 @@
 package k.midieditor;
 
-import static k.core.util.Helper.CommandLine.acceptPair;
-import static k.core.util.Helper.CommandLine.getProperty;
-import static k.core.util.Helper.CommandLine.hasKey;
-import static k.core.util.Helper.CommandLine.normalizeCommandArgs;
+import static k.core.util.Helper.ProgramProps.acceptPair;
+import static k.core.util.Helper.ProgramProps.getProperty;
+import static k.core.util.Helper.ProgramProps.hasKey;
+import static k.core.util.Helper.ProgramProps.normalizeCommandArgs;
 
 import java.awt.Toolkit;
 import java.io.PrintStream;
@@ -11,8 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.SwingUtilities;
 
-import k.core.gui.SideConsole;
 import k.core.util.Helper;
+import k.core.util.gui.SideConsole;
 import k.midieditor.gui.MidiEditorMain;
 
 public class MidiEditor {
@@ -26,7 +26,7 @@ public class MidiEditor {
 		PrintStream temp = System.out, out = SideConsole.earlyChainO(temp);
 		System.setOut(out);
 		PrintStream err = System.err, temp_ = System.err;
-		Helper.Arrays.print(args);
+		Helper.BetterArrays.print(args);
 		args = normalizeCommandArgs(args);
 		for (String s : args) {
 			if (s.equalsIgnoreCase("-debug")) {
@@ -35,7 +35,7 @@ public class MidiEditor {
 				break;
 			}
 		}
-		Helper.Arrays.print(args);
+		Helper.BetterArrays.print(args);
 		for (int i = 0; i < args.length; i += 2) {
 			int i2 = i + 1;
 			String key = args[i];
