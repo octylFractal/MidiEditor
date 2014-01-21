@@ -2,7 +2,11 @@ Current version: 1.3 alpha, still heavily under development!
 
 REQUIRED
 =========
-KCore, my library. Avaliable in src form at http://www.github.com/kenzierocks/KCore.
+Here are the KCore parts that this needs:
+*Core
+*Gui
+
+Get them [here](http://techshroom.com/other/libraries/kcore/distributed-segments/).
 
 Features: 
   - Argument parser
