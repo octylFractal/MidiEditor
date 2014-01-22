@@ -52,6 +52,12 @@ public class MidiFilePlayer {
 		}
 	};
 
+	/**
+	 * 
+	 * @param se
+	 * @deprecated The form {@link MidiFilePlayer#open(Sequence)} followed by
+	 *             {@link MidiFilePlayer#play()} is preferred.
+	 */
 	@Deprecated
 	public static void openAndPlay(Sequence se) {
 		open(se);
