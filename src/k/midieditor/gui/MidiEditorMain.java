@@ -67,7 +67,6 @@ public class MidiEditorMain extends JFrame {
 	public MidiEditorMain(String ver) {
 		super("MidiEditor v" + ver);
 		console = new SideConsole(ProgramProps.hasKey("debug"));
-		console.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
