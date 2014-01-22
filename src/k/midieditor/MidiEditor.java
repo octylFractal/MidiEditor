@@ -8,6 +8,7 @@ import static k.core.util.Helper.ProgramProps.normalizeCommandArgs;
 import java.awt.Toolkit;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 import javax.swing.SwingUtilities;
 
@@ -23,17 +24,14 @@ public class MidiEditor {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		PrintStream temp = System.out, out = SideConsole.earlyChainO(temp);
-		System.setOut(out);
-		PrintStream err = System.err, temp_ = System.err;
+		PrintStream temp = System.out, out = System.out, err = System.err;
 		Helper.BetterArrays.print(args);
 		args = normalizeCommandArgs(args);
-		for (String s : args) {
-			if (s.equalsIgnoreCase("-debug")) {
-				err = SideConsole.earlyChainE(temp_);
-				System.setErr(err);
-				break;
-			}
+		if (Arrays.asList(args).contains("-debug")) {
+			out = SideConsole.earlyChainO(out);
+			err = SideConsole.earlyChainE(err);
+			System.setOut(out);
+			System.setErr(err);
 		}
 		Helper.BetterArrays.print(args);
 		for (int i = 0; i < args.length; i += 2) {

@@ -79,11 +79,15 @@ public class MidiEditorMain extends JFrame {
 			throw new IllegalStateException(
 					"attempted to create > 1 MidiEditorMain");
 		}
-		console = new SideConsole(ProgramProps.hasKey("debug"));
+		if (ProgramProps.hasKey("debug")) {
+			console = new SideConsole(true);
+		}
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-				Helper.Window.kill(console);
+				if (console != null) {
+					Helper.Window.kill(console);
+				}
 			}
 		});
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
