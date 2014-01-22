@@ -72,7 +72,6 @@ public class MidiEditorMain extends JFrame {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				Helper.Window.kill(console);
-				System.exit(0);
 			}
 		});
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
