@@ -17,19 +17,18 @@ public class SAJMIActionListener extends JMIActionListener {
 
 	@Override
 	public void onAction(ActionEvent e) {
+		if (MidiEditorMain.working == null) {
+			JOptionPane.showMessageDialog(null,
+					"There is not a file currently open!", "Cannot save",
+					JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		JFileChooser fd = ((OJMIActionListener) MidiEditorMain.OPEN_LISTENER)
 				.getDialog();
 		fd.showSaveDialog(null);
 		File out = fd.getSelectedFile();
 		if (out != null) {
-			if (MidiEditorMain.working != null) {
-				MidiEditorMain.working.save(out);
-			} else if (MidiEditorMain.working == null) {
-				JOptionPane.showMessageDialog(null,
-						"There is not a file currently open!", "Cannot save",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
+			MidiEditorMain.working.save(out);
 		}
 	}
-
 }
