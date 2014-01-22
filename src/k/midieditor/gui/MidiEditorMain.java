@@ -58,13 +58,22 @@ public class MidiEditorMain extends JFrame {
 			STOP_LISTENER = new STJMIActionListener(),
 			LOOP_LISTENER = new LJIMIActionListener();
 
-	private static JFrame inst = null;
+	private static MidiEditorMain inst = null;
 
 	public static MidiFile working = null;
 
 	public static SideConsole console;
 
-	public MidiEditorMain(String ver) {
+	public static MidiEditorMain create(String ver) {
+		if (inst == null) {
+			return new MidiEditorMain(ver);
+		} else {
+			inst.setTitle("MidiEditor v" + ver);
+			return inst;
+		}
+	}
+
+	private MidiEditorMain(String ver) {
 		super("MidiEditor v" + ver);
 		console = new SideConsole(ProgramProps.hasKey("debug"));
 		addWindowListener(new WindowAdapter() {
@@ -79,10 +88,6 @@ public class MidiEditorMain extends JFrame {
 		this.setSize(getPreferredSize());
 		Helper.Window.drop(this);
 		addAllComponents();
-		if (inst != null) {
-			Helper.Window.kill(this);
-			return;
-		}
 		this.setVisible(true);
 		inst = this;
 		refresh();

@@ -70,7 +70,7 @@ public class MidiEditor {
 
 				@Override
 				public void run() {
-					mainwin = new MidiEditorMain(VERSION);
+					mainwin = MidiEditorMain.create(VERSION);
 				}
 			});
 		} catch (InvocationTargetException e) {
