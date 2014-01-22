@@ -75,6 +75,10 @@ public class MidiEditorMain extends JFrame {
 
 	private MidiEditorMain(String ver) {
 		super("MidiEditor v" + ver);
+		if (inst != null) {
+			throw new IllegalStateException(
+					"attempted to create > 1 MidiEditorMain");
+		}
 		console = new SideConsole(ProgramProps.hasKey("debug"));
 		addWindowListener(new WindowAdapter() {
 			@Override
