@@ -10,25 +10,25 @@ import k.core.util.gui.JMIActionListener;
 import k.midieditor.gui.MidiEditorMain;
 
 public class SAJMIActionListener extends JMIActionListener {
-	public SAJMIActionListener() {
-		super("Save as...", MidiEditorMain.SAVEA_JMIKEY,
-				MidiEditorMain.FILE_KEY);
-	}
+    public SAJMIActionListener() {
+        super("Save as...", MidiEditorMain.SAVEA_JMIKEY,
+                MidiEditorMain.FILE_KEY);
+    }
 
-	@Override
-	public void onAction(ActionEvent e) {
-		if (MidiEditorMain.working == null) {
-			JOptionPane.showMessageDialog(null,
-					"There is not a file currently open!", "Cannot save",
-					JOptionPane.INFORMATION_MESSAGE);
-			return;
-		}
-		JFileChooser fd = ((OJMIActionListener) MidiEditorMain.OPEN_LISTENER)
-				.getDialog();
-		fd.showSaveDialog(null);
-		File out = fd.getSelectedFile();
-		if (out != null) {
-			MidiEditorMain.working.save(out);
-		}
-	}
+    @Override
+    public void onAction(ActionEvent e) {
+        if (MidiEditorMain.working == null) {
+            JOptionPane.showMessageDialog(null,
+                    "There is not a file currently open!", "Cannot save",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        JFileChooser fd = ((OJMIActionListener) MidiEditorMain.OPEN_LISTENER)
+                .getDialog();
+        fd.showSaveDialog(null);
+        File out = fd.getSelectedFile();
+        if (out != null) {
+            MidiEditorMain.working.save(out);
+        }
+    }
 }
